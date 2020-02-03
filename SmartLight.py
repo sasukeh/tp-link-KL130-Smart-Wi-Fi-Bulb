@@ -19,9 +19,6 @@ class SmartLight(WebSocketClient):
         self.light = KL130(lightIP)
         self.light.ransition_period = 0
         self.light.off()
-        self.light.brightness = 100
-        self.light.saturation = 100
-        print(self.light.model)
         super().__init__(url, protocols=['http-only', 'chat'])
 
     def go(self):
