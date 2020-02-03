@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
-Control class for TP-Link A19-LB130 RBGW WiFi bulb
+Control class for TP-Link KL130 RBGW WiFi bulb
 '''
 
 import datetime
@@ -10,16 +10,18 @@ import json
 import sys
 
 
-class LB130(object):
+class KL130(object):
     '''
-    Methods for controlling the LB130 bulb
+    Methods for controlling the KL130 bulb
     '''
 
     encryption_key = 0xAB
 
-    __udp_ip = "10.0.0.130"
+    __udp_ip = "192.168.1.0"
+ #  __udp_ip = "10.0.0.130"
     __udp_port = 9999
     __on_off = 0
+    __model = ""
     __transition_period = 0
     __hue = 0
     __saturation = 0
@@ -68,12 +70,20 @@ class LB130(object):
                 col1 = 'system'
                 col2 = 'get_sysinfo'
                 col3 = 'light_state'
+                col4 = 'dft_on_state'
+                self.__model = data[col1][col2]['model']
                 self.__alias = data[col1][col2]['alias']
                 self.__on_off = int(data[col1][col2][col3]['on_off'])
-                self.__hue = int(data[col1][col2][col3]['hue'])
-                self.__saturation = int(data[col1][col2][col3]['saturation'])
-                self.__brightness = int(data[col1][col2][col3]['brightness'])
-                self.__color_temp = int(data[col1][col2][col3]['color_temp'])
+                if self.__on_off == 0 :
+                    self.__hue        = int(data[col1][col2][col3][col4]['hue'])
+                    self.__saturation = int(data[col1][col2][col3][col4]['saturation'])
+                    self.__brightness = int(data[col1][col2][col3][col4]['brightness'])
+                    self.__color_temp = int(data[col1][col2][col3][col4]['color_temp'])
+                else :
+                    self.__hue        = int(data[col1][col2][col3]['hue'])
+                    self.__saturation = int(data[col1][col2][col3]['saturation'])
+                    self.__brightness = int(data[col1][col2][col3]['brightness'])
+                    self.__color_temp = int(data[col1][col2][col3]['color_temp'])
                 self.device_id = str(data[col1][col2]['deviceId'])
             except (RuntimeError, TypeError, ValueError) as exception:
                 raise Exception(exception)
@@ -141,6 +151,13 @@ class LB130(object):
         '''
         self.__update("{\"smartlife.iot.common.system\":{\"reboot\":\
                       {\"delay\":1}}}")
+
+    @property
+    def model(self):
+        '''
+        Get the device model
+        '''
+        return self.__model
 
     @property
     def alias(self):
@@ -400,10 +417,9 @@ class LB130(object):
         Update the bulbs status
         '''
         enc_message = self.__encrypt(message, self.encryption_key)
-        
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            sock.settimeout(5)
+            sock.settimeout(10)
             sock.sendto(enc_message, (self.__udp_ip, self.__udp_port))
             data_received = False
             dec_data = ""
@@ -432,12 +448,13 @@ class LB130(object):
 
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            sock.settimeout(5)
+            sock.settimeout(10)
             sock.sendto(enc_message, (self.__udp_ip, self.__udp_port))
             data_received = False
             dec_data = ""
+            i = 0
             while True:
-                data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
+                data, addr = sock.recvfrom(4096)  # buffer size is 1024 bytes
                 dec_data = self.__decrypt(data, self.encryption_key)
                 if "}}}" in dec_data:  # end of sysinfo message
                     data_received = True
@@ -450,5 +467,5 @@ class LB130(object):
                     raise RuntimeError("Bulb returned error: " + dec_data)
             else:
                 raise RuntimeError("Error connecting to bulb")
-        except:
+        except Exception as e:
             raise RuntimeError("Error connecting to bulb")
