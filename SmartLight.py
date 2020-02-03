@@ -56,8 +56,9 @@ class SmartLight(WebSocketClient):
                 switch = self.lastMessage[1]['value']['value']['LightSwitchState']
                 color = self.lastMessage[1]['value']['value']['LightColor']
                 self.lightControl(switch, color)
-            except (KeyError, TypeError):
+            except (KeyError, TypeError) as e:
                 print('*** received_message:except:' + str(self.lastMessage))
+                print(e)
 
     def unhandled_error(self, error):
         print('*** unhandled_error:', error)
@@ -74,12 +75,18 @@ class SmartLight(WebSocketClient):
         else :
             self.light.on()
             if color == 'White' :
-                self.light.hsb(0, 0, 100) 
+                self.light.temperature = 9000
             elif color == 'Red' :
-                self.light.hsb(0, 100, 100)
-
+                for _ in range(10):
+                    self.light.hsb = (10, 100, 100)  
+                    time.sleep(0.5)
+                    self.light.hsb = (0, 0, 0) 
+                    time.sleep(0.5)
+                self.light.hsb = (10, 100, 100)  
+ 
+                                   
 if __name__ == '__main__':
-    lightIP = '192.168.1.9' 
+    lightIP = '192.168.1.9'
     url   = 'wss://aitc2.dyndns.org'
     query = '/openmasami/sample01/read/path/1F/居間/照明'
     agent = [ ('AGENTID', 'Receive.py') ]

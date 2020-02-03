@@ -1,0 +1,83 @@
+{
+    "system": {
+        "get_sysinfo": {
+            "sw_ver": "1.8.11 Build 191113 Rel.105336",
+            "hw_ver": "1.0",
+            "model": "KL130(JP)",
+            "description": "Smart Wi-Fi LED Bulb with Color Changing",
+            "alias": "ãªãã³ã°",
+            "mic_type": "IOT.SMARTBULB",
+            "dev_state": "normal",
+            "mic_mac": "0C80631B3074",
+            "deviceId": "801216B1F6F19391226ACF62C41C231A1A6FE920",
+            "oemId": "FCC79351FB9E40E6B50A9FE4358F4520",
+            "hwId": "111E35908497A05512E259BB76801E10",
+            "is_factory": false,
+            "disco_ver": "1.0",
+            "ctrl_protocols": {
+                "name": "Linkie",
+                "version": "1.0"
+            },
+            "light_state": {
+                "on_off": 1,
+                "mode": "normal",
+                "hue": 359,
+                "saturation": 100,
+                "color_temp": 0,
+                "brightness": 100
+            },
+            "is_dimmable": 1,
+            "is_color": 1,
+            "is_variable_color_temp": 1,
+            "preferred_state": [
+                {
+                    "index": 0,
+                    "hue": 0,
+                    "saturation": 0,
+                    "color_temp": 2700,
+                    "brightness": 50
+                },
+                {
+                    "index": 1,
+                    "hue": 0,
+                    "saturation": 75,
+                    "color_temp": 0,
+                    "brightness": 100
+                },
+                {
+                    "index": 2,
+                    "hue": 120,
+                    "saturation": 75,
+                    "color_temp": 0,
+                    "brightness": 100
+                },
+                {
+                    "index": 3,
+                    "hue": 240,
+                    "saturation": 75,
+                    "color_temp": 0,
+                    "brightness": 100
+                }
+            ],
+            "rssi": -54,
+            "active_mode": "none",
+            "heapsize": 284064,
+            "tid": "tty.osQSGKfLwSKNelCpyijhpxDymabaCshq",
+            "err_code": 0
+        }
+    }
+}
+    {
+    "smartlife.iot.smartbulb.lightingservice": {
+        "get_light_details": {
+            "lamp_beam_angle": 150,
+            "min_voltage": 110,
+            "max_voltage": 120,
+            "wattage": 10,
+            "incandescent_equivalent": 60,
+            "max_lumens": 800,
+            "color_rendering_index": 80,
+            "err_code": 0
+        }
+    }
+}
