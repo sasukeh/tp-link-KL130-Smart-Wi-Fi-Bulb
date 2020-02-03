@@ -1,13 +1,13 @@
-# TP-Link A19-LB130 Wifi Bulb Python Library
+# TP-Link KL130 Wifi Bulb Python Library
 
-The tplight.py python library contains a class LB130 and methods for controlling the TP-Link A19-LB130 Wifi bulb.
+The tplight.py python library contains a class KL130 and methods for controlling the TP-Link KL130 Wifi bulb.
 
 A demo file demo.py is included which shows how to use the class.
 
-Create an instance of the LB130 class with the IP address for the bulb
+Create an instance of the KL130 class with the IP address for the bulb
 
 ```
-light = LB130("10.0.0.130")
+light = KL130("10.0.0.130")
 ```
 
 ## Methods
