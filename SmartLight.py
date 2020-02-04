@@ -86,7 +86,7 @@ if __name__ == '__main__':
     lightIP = '192.168.1.9'
     url   = 'wss://aitc2.dyndns.org'
     query = '/openmasami/sample01/read/path/1F/居間/照明'
-    agent = [ ('AGENTID', 'Receive.py') ]
+    agent = [ ('AGENTID', 'SmartLight') ]
     endPoint = url + urllib.parse.quote(query.encode('utf-8')) + '?' + urllib.parse.urlencode(agent)
     print(endPoint)
     while True:

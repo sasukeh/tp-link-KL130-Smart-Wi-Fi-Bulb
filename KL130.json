@@ -21,7 +21,7 @@
             "light_state": {
                 "on_off": 1,
                 "mode": "normal",
-                "hue": 359,
+                "hue": 12,
                 "saturation": 100,
                 "color_temp": 0,
                 "brightness": 100
@@ -59,9 +59,9 @@
                     "brightness": 100
                 }
             ],
-            "rssi": -54,
+            "rssi": -53,
             "active_mode": "none",
-            "heapsize": 284064,
+            "heapsize": 283756,
             "tid": "tty.osQSGKfLwSKNelCpyijhpxDymabaCshq",
             "err_code": 0
         }
