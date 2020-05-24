@@ -21,7 +21,7 @@ def main():
     print("Device ID: " + light.device_id)
     print("Alias: " + light.alias)
     print("Wattage: " + str(light.wattage))
-"""
+
     # set the transition period for any changes to 1 seconds
     light.transition_period = 0
 
@@ -50,6 +50,6 @@ def main():
     # set the colour to warm white and the brightness to 0
     light.temperature = 3800
     light.brightness = 0
-"""
+
 if __name__ == "__main__":
     main()
